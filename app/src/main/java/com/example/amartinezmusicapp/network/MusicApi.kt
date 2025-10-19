@@ -9,5 +9,5 @@ interface MusicApi {
     suspend fun getAlbums(): List<Album>
 
     @GET("api/albums/{id}")
-    suspend fun getAlbum(@Path("id") id: Int): Album
+    suspend fun getAlbum(@Path("id") id: String): Album
 }

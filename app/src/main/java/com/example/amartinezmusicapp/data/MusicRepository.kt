@@ -6,5 +6,6 @@ class MusicRepository {
     private val api = RetrofitClient.api
 
     suspend fun fetchAlbums() = runCatching { api.getAlbums() }
-    suspend fun fetchAlbum(id: Int) = runCatching { api.getAlbum(id) }
+    suspend fun fetchAlbum(id: String) = runCatching { api.getAlbum(id) }
+
 }

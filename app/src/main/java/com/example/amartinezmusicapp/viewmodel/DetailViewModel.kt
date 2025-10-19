@@ -15,14 +15,16 @@ class DetailViewModel(
     private val _album = MutableStateFlow<UiState<Album>>(UiState.Idle)
     val album: StateFlow<UiState<Album>> = _album
 
-    fun loadAlbum(id: Int) {
+    fun loadAlbum(id: String) {
         _album.value = UiState.Loading
         viewModelScope.launch {
             val result = repository.fetchAlbum(id)
             _album.value = result.fold(
-                onSuccess = { UiState.Success(it) },
-                onFailure = { UiState.Error(it.message ?: "Unknown error") }
+                onSuccess = { UiState.Success(data = it) },
+                onFailure = { UiState.Error(message = it.message ?: "Unknown error") }
             )
         }
     }
+
+
 }

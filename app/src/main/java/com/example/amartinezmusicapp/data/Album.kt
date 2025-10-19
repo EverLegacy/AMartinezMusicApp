@@ -1,12 +1,15 @@
 package com.example.amartinezmusicapp.data
 
-import java.io.Serializable
+import com.squareup.moshi.Json
 
-//api de los albums que mando
 data class Album(
-    val id: Int,
+    @Json(name = "_id") val mongoId: String? = null,
+    val id: String? = null,
     val title: String,
     val artist: String,
-    val image: String,
-    val description: String? = null
-) : Serializable
+    val description: String,
+    val image: String
+) {
+    val safeId: String
+        get() = id ?: mongoId.orEmpty()
+}
