@@ -5,9 +5,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -77,40 +80,88 @@ fun HomeScreen(
 }
 
 @Composable
-private fun HeaderGreeting(name: String) {
+fun HeaderGreeting(name: String) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
-            .height(140.dp)
-            .clip(MaterialTheme.shapes.extraLarge)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
             .background(
-                Brush.linearGradient(
-                    listOf(Color(0xFF8E6BFF), Color(0xFFB39DFF))
-                )
+                brush = Brush.verticalGradient(
+                    listOf(Color(0xFFB993D6), Color(0xFF8CA6DB))
+                ),
+                shape = RoundedCornerShape(20.dp)
             )
-            .padding(20.dp)
+            .padding(16.dp)
     ) {
-        Column {
-            Text("Good Morning!", color = Color.White.copy(alpha = 0.9f))
-            Text(
-                name,
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.headlineMedium
-            )
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            // Top row with icons
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Menu,
+                    contentDescription = "Menu",
+                    tint = Color.White,
+                    modifier = Modifier.size(26.dp)
+                )
+
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Search",
+                    tint = Color.White,
+                    modifier = Modifier.size(26.dp)
+                )
+            }
+
+            // Texts below icons
+            Column {
+                Text(
+                    text = "Good Morning!",
+                    style = MaterialTheme.typography.labelSmall.copy(color = Color.White)
+                )
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+            }
         }
     }
 }
 
+
+
+
 @Composable
-private fun SectionTitle(title: String) {
-    Text(
-        text = title,
-        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-    )
+fun SectionTitle(title: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+        )
+        Text(
+            text = "See more",
+            style = MaterialTheme.typography.bodySmall.copy(
+                color = Color(0xFF6C63FF),
+                fontWeight = FontWeight.SemiBold
+            )
+        )
+    }
 }
+
 
 @Composable
 private fun AlbumCard(album: Album, onClick: () -> Unit) {
